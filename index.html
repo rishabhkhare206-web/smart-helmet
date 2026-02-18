@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapse X1 | The Future of Riding</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #00f2ff; /* Neon Cyan */
+            --secondary: #7000ff; /* Neon Purple */
+            --dark-bg: #0a0a0a;
+            --panel-bg: #111111;
+            --text-main: #e0e0e0;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dark-bg);
+            background: var(--primary);
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+        .btn:hover {
+            background: #fff;
+            box-shadow: 0 0 20px var(--primary);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn-outline:hover { background: rgba(0, 242, 255, 0.1); }
+
+        h1, h2, h3 { color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        .highlight { color: var(--primary); }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { color: #fff; text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Simulated HUD Background Grid */
+        .hud-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+        }
+
+        .hero-content {
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; color: #aaa; }
+        
+        /* Visual Representation of Helmet (CSS Only Circle for now) */
+        .helmet-visual {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at 30% 30%, #444, #000);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+            position: relative;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .visor {
+            width: 90%;
+            height: 50%;
+            background: linear-gradient(180deg, #111, var(--primary));
+            border-radius: 10px 10px 100px 100px;
+            opacity: 0.8;
+            position: relative;
+            overflow: hidden;
+        }
+        .visor::after {
+            content: "AI ACTIVE";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            color: var(--primary);
+            letter-spacing: 3px;
+            animation: blink 2s infinite;
+        }
+
+        /* --- FEATURES SECTION --- */
+        .features { padding: 100px 0; background: var(--panel-bg); }
+        .section-title { text-align: center; margin-bottom: 60px; font-size: 2.5rem; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 15px; color: var(--primary); }
+        
+        /* --- INTERACTIVE HUD DEMO --- */
+        .hud-demo { padding: 100px 0; border-top: 1px solid #333; }
+        .hud-interface {
+            background: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 500px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #333;
+        }
+        .hud-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            color: var(--primary);
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 5px var(--primary);
+        }
+        .hud-left, .hud-right { display: flex; flex-direction: column; justify-content: space-between; }
+        .stat { background: rgba(0,0,0,0.6); padding: 10px 20px; border: 1px solid var(--primary); margin-bottom: 10px; }
+        .stat span { display: block; font-size: 2rem; font-weight: bold; color: #fff; }
+        .stat label { font-size: 0.8rem; text-transform: uppercase; }
+
+        /* --- FOOTER --- */
+        footer { padding: 50px 0; text-align: center; border-top: 1px solid #333; color: #666; }
+        
+        /* --- ANIMATIONS --- */
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">SYNAPSE <span class="highlight">X1</span></div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#tech">Technology</a></li>
+                    <li><a href="#hud">HUD Demo</a></li>
+                </ul>
+                <a href="#" class="btn btn-outline" onclick="orderNow()">Pre-Order</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hud-grid"></div>
+        <div class="container hero-content">
+            <div class="helmet-visual">
+                <div class="visor"></div>
+            </div>
+            <h1>The Helmet That <br><span class="highlight">Thinks</span> Before You Do.</h1>
+            <p>360° Awareness. Augmented Reality HUD. Neural Accident Prediction.</p>
+            <a href="#hud" class="btn">Experience The Vision</a>
+            <a href="#specs" class="btn btn-outline" style="margin-left: 10px;">Tech Specs</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">AI-Powered <span class="highlight">Protection</span></h2>
+            
+            
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>👁️ AR Heads-Up Display</h3>
+                    <p>Navigation, speed, and hazard warnings projected directly onto your visor. Keep your eyes on the road, always.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Guardian AI</h3>
+                    <p>Rear-view cameras and LIDAR sensors detect blind-spot threats and alert you via haptic feedback.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🗣️ Voice Command</h3>
+                    <p>"Hey Synapse, find the nearest gas station." Control music, calls, and maps completely hands-free.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🆘 Emergency Beacon</h3>
+                    <p>In the event of a crash, the helmet automatically sends your GPS coordinates to emergency services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hud" class="hud-demo">
+        <div class="container">
+            <h2 class="section-title">Live <span class="highlight">HUD</span> Simulation</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #888;">Click "Engage System" to see the AI interface in action.</p>
+            
+            <div style="text-align: center; margin-bottom: 30px;">
+                <button class="btn" onclick="toggleHUD()">Engage System</button>
+            </div>
+
+            <div class="hud-interface" id="hudScreen">
+                <div class="hud-overlay" style="opacity: 0.3;" id="hudOverlay">
+                    <div class="hud-left">
+                        <div class="stat">
+                            <span id="speed">0</span>
+                            <label>KM/H</label>
+                        </div>
+                        <div class="stat">
+                            <span id="rpm">0</span>
+                            <label>RPM x1000</label>
+                        </div>
+                    </div>
+                    <div class="hud-right">
+                        <div class="stat" style="color: var(--secondary);">
+                            <span id="nav">OFFLINE</span>
+                            <label>Navigation</label>
+                        </div>
+                        <div class="stat">
+                            <span id="battery">85%</span>
+                            <label>Battery</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Synapse Technologies. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #444;">Designed for the bold.</p>
+        </div>
+    </footer>
+
+    <script>
+        // HUD Simulation Logic
+        let isHudActive = false;
+        let speedInterval;
+
+        function toggleHUD() {
+            const overlay = document.getElementById('hudOverlay');
+            const btn = document.querySelector('.hud-demo button');
+            const speedEl = document.getElementById('speed');
+            const rpmEl = document.getElementById('rpm');
+            const navEl = document.getElementById('nav');
+
+            if (!isHudActive) {
+                // Turn ON
+                overlay.style.opacity = "1";
+                btn.innerText = "Disengage System";
+                btn.classList.add('btn-outline');
+                navEl.innerText = "CALCULATING...";
+                
+                setTimeout(() => { navEl.innerText = "DEST: HOME"; }, 1500);
+
+                // Simulate riding data
+                let speed = 0;
+                let rpm = 1;
+                speedInterval = setInterval(() => {
+                    // Random fluctuation
+                    speed = Math.min(120, Math.max(0, speed + Math.floor(Math.random() * 10) - 3)); 
+                    rpm = (speed / 20) + 1.5 + (Math.random() * 0.5);
+                    
+                    speedEl.innerText = speed;
+                    rpmEl.innerText = rpm.toFixed(1);
+                }, 200);
+
+                isHudActive = true;
+            } else {
+                // Turn OFF
+                overlay.style.opacity = "0.3";
+                btn.innerText = "Engage System";
+                btn.classList.remove('btn-outline');
+                navEl.innerText = "OFFLINE";
+                clearInterval(speedInterval);
+                speedEl.innerText = "0";
+                rpmEl.innerText = "0";
+                isHudActive = false;
+            }
+        }
+
+        function orderNow() {
+            alert("Thank you for your interest in Synapse X1! Pre-orders open soon.");
+        }
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
